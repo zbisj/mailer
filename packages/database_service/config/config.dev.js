@@ -2,7 +2,7 @@
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
 
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
 // 1.1. END ....................................................................
 
@@ -31,7 +31,7 @@ const { PORT } = process.env;
 
 module.exports = {
   port: PORT || 4000,
-  mongoURI: process.env.MONGO_URI
-}
+  mongoURI: process.env.MONGO_URI,
+};
 
 // END FILE ####################################################################

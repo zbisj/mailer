@@ -36,7 +36,7 @@ server
   .use(express.urlencoded({ extended: true }))
   .use("/graphql", graphqlExpress({ schema }))
   .use("/gq", graphiqlExpress({ endpointURL: "/graphql" }))
-  .listen(port, () => console.log(`listening to port ${port}`));
+  .listen(port, () => console.log(`Listening to port ${port}`));
 
 // 1.5.2. END
 

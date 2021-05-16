@@ -16,7 +16,7 @@
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
 
-const { PORT } = process.env;
+const { PORT, DB_SERVICE_PORT } = process.env;
 
 // 1.5.2. END
 
@@ -26,7 +26,8 @@ const { PORT } = process.env;
 // 1.6. END ....................................................................
 
 module.exports = {
-  port: PORT || 3000
-}
+  port: PORT || 3000,
+  databaseService: DB_SERVICE_PORT || 4000,
+};
 
 // END FILE ####################################################################

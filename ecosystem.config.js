@@ -1,8 +1,10 @@
-// [ GATEWAY > DATA > RESOLVERS ] ##############################################
-
-const axios = require("axios");
+// [ MAIN > PM2 ECOSYSTEM CONFIG ] #############################################
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
+
+const path = require("path");
+const dotenv = require("dotenv");
+
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
@@ -17,10 +19,33 @@ const axios = require("axios");
 // 1.5. MAIN ...................................................................
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
+dotenv.config();
 
-const getMails = async () => {
-  const mails = (await axios.get("http://localhost:4001/mails")).data.payload;
-  return mails;
+const MONGO_URI = process.env.MONGO_URI;
+
+const basePath = path.join(__dirname, "/packages");
+
+const ecosystem = {
+  apps: [
+    {
+      name: "Gateway Service",
+      watch: true,
+      script: basePath + "/gateway/server.js",
+      env: {
+        PORT: 3001,
+        DB_SERVICE_PORT: 4001,
+      },
+    },
+    {
+      name: "Database Service",
+      watch: true,
+      script: basePath + "/database_service/server.js",
+      env: {
+        PORT: 4001,
+        MONGO_URI,
+      },
+    },
+  ],
 };
 
 // 1.5.2. END
@@ -30,17 +55,6 @@ const getMails = async () => {
 // 1.6. STYLES .................................................................
 // 1.6. END ....................................................................
 
-module.exports = {
-  Query: {
-    mails: () => getMails(),
-    mail: (_, args) => mockMails[0],
-  },
-  Mutation: {
-    mail: (_, args) => {
-      mockMails[0] = args;
-      return args;
-    },
-  },
-};
+module.exports = ecosystem;
 
 // END FILE ####################################################################
