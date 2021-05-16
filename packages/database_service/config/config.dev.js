@@ -1,22 +1,12 @@
-// [ GATEWAY > SERVER ] ########################################################
+// [ DATABSE SERVICE > CONFIG > DEV] ###########################################
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
 
-const express = require("express");
-const {
-  graphqlExpress,
-  graphiExpress,
-  graphiqlExpress,
-} = require("apollo-server-express");
+const dotenv = require('dotenv');
 
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
-
-const { port } = require("./config");
-const schema = require("./data/schema");
-const resolvers = require("./data/resolvers");
-
 // 1.2. END ....................................................................
 
 // 1.3. IMAGES .................................................................
@@ -28,15 +18,9 @@ const resolvers = require("./data/resolvers");
 // 1.5. MAIN ...................................................................
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
+dotenv.config();
 
-const server = express();
-
-server
-  .use(express.json())
-  .use(express.urlencoded({ extended: true }))
-  .use("/graphql", graphqlExpress({ schema }))
-  .use("/gq", graphiqlExpress({ endpointURL: "/graphql" }))
-  .listen(port, () => console.log(`listening to port ${port}`));
+const { PORT } = process.env;
 
 // 1.5.2. END
 
@@ -44,4 +28,10 @@ server
 
 // 1.6. STYLES .................................................................
 // 1.6. END ....................................................................
+
+module.exports = {
+  port: PORT || 4000,
+  mongoURI: process.env.MONGO_URI
+}
+
 // END FILE ####################################################################

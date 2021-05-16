@@ -1,21 +1,12 @@
-// [ GATEWAY > SERVER ] ########################################################
+// [ DATABSE SERVICE > DATA > RESOLVERS] #######################################
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
-
-const express = require("express");
-const {
-  graphqlExpress,
-  graphiExpress,
-  graphiqlExpress,
-} = require("apollo-server-express");
-
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
 
-const { port } = require("./config");
-const schema = require("./data/schema");
-const resolvers = require("./data/resolvers");
+const configDev = require('./config.dev');
+const configProd = require('./config.prod');
 
 // 1.2. END ....................................................................
 
@@ -29,14 +20,7 @@ const resolvers = require("./data/resolvers");
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
 
-const server = express();
-
-server
-  .use(express.json())
-  .use(express.urlencoded({ extended: true }))
-  .use("/graphql", graphqlExpress({ schema }))
-  .use("/gq", graphiqlExpress({ endpointURL: "/graphql" }))
-  .listen(port, () => console.log(`listening to port ${port}`));
+const { NODE_ENV } = process.env;
 
 // 1.5.2. END
 
@@ -44,4 +28,7 @@ server
 
 // 1.6. STYLES .................................................................
 // 1.6. END ....................................................................
+
+module.exports = NODE_ENV === 'production' ? configProd : configDev;
+
 // END FILE ####################################################################
