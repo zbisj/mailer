@@ -8,6 +8,8 @@ const {
   databaseService: { port },
 } = require("../config/");
 
+const { pushToMessageQ } = require("../Q/connect");
+
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
@@ -23,13 +25,13 @@ const {
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
 
-const databaseURL = `http://localhost:${port}`;
+const databaseServiceURL = `http://localhost:${port}`;
 
-const get = (path) =>
-  async(await axios.get(`${databaseURL}/${path}`)).data.payload;
+const get = async (path) =>
+  (await axios.get(`${databaseServiceURL}/${path}`)).data.payload;
 
-const post = (path, body) =>
-  async(await axios.post(`${databaseURL}/${path}`, { ...body })).data.payload;
+const post = async (path, body) =>
+  (await axios.post(`${databaseServiceURL}/${path}`, { ...body })).data.payload;
 
 // 1.5.2. END
 
@@ -44,7 +46,19 @@ module.exports = {
     mail: (_, { id }) => get(`mail/${id}`),
   },
   Mutation: {
-    mail: (_, args) => post(`mails`, args),
+    mail: (_, args) => {
+      let result, error;
+
+      try {
+        result = post("mails", args);
+      } catch (err) {
+        error = err;
+      }
+
+      pushToMessageQ(JSON.stringify(args));
+
+      return result || error;
+    },
   },
 };
 

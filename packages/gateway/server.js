@@ -3,11 +3,7 @@
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
 
 const express = require("express");
-const {
-  graphqlExpress,
-  graphiExpress,
-  graphiqlExpress,
-} = require("apollo-server-express");
+const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 
 // 1.1. END ....................................................................
 
@@ -15,7 +11,6 @@ const {
 
 const { port } = require("./config");
 const schema = require("./data/schema");
-const resolvers = require("./data/resolvers");
 
 // 1.2. END ....................................................................
 
