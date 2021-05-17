@@ -1,8 +1,8 @@
 // [ DATABASE SERVICE > SERVER ] ###############################################
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
+
 const express = require("express");
-const bodyParser = require("body-parser");
 
 // 1.1. END ....................................................................
 
@@ -25,8 +25,8 @@ const config = require("./config");
 const { port } = config;
 const server = express();
 
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
 
 require("./db_util")(config);
 require("./routes/get")(server);
@@ -34,6 +34,7 @@ require("./routes/post")(server);
 
 server.listen(port, () => console.log(`listening to port ${port}`));
 process.on("uncaughtException", () => console.log("I am dying"));
+
 // 1.5.2. END
 
 // 1.5. END ....................................................................

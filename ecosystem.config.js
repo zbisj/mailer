@@ -21,28 +21,47 @@ const dotenv = require("dotenv");
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
 dotenv.config();
 
-const MONGO_URI = process.env.MONGO_URI;
+// const MONGO_URI = process.env.MONGO_URI;
 
 const basePath = path.join(__dirname, "/packages");
 
 const ecosystem = {
   apps: [
+    // GATEWAY SERVICE
     {
       name: "Gateway Service",
       watch: true,
       script: basePath + "/gateway/server.js",
       env: {
         PORT: 3001,
+        QUEUE_URI:
+          "amqps://kllvghpb:7bYaUq3joTLp51tBI9hopMtyU358Mliv@dove.rmq.cloudamqp.com/kllvghpb",
         DB_SERVICE_PORT: 4001,
       },
     },
+
+    // DATABASE SERVICE
     {
       name: "Database Service",
       watch: true,
       script: basePath + "/database_service/server.js",
       env: {
         PORT: 4001,
-        MONGO_URI,
+        MONGO_URI:
+          "mongodb+srv://sibabale:test123@mailercluster.5nzxx.mongodb.net/mails?retryWrites=true&w=majority",
+      },
+    },
+    // MAILING SERVICE
+    {
+      name: "Mailing Service",
+      watch: true,
+      script: basePath + "/mailing_service/index.js",
+      env: {
+        MJ_API_PUBLIC: "dcb93cfc755a5eb62409d18e7ec17862",
+        MJ_API_SECRETE: "69d64f5906eab18ea213f29bb236666d",
+        QUEUE_URI:
+          "amqps://kllvghpb:7bYaUq3joTLp51tBI9hopMtyU358Mliv@dove.rmq.cloudamqp.com/kllvghpb",
+        DB_SERVICE_PORT: 4001,
       },
     },
   ],

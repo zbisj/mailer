@@ -1,9 +1,6 @@
-// [ DATABSE SERVICE > CONFIG > DEV] ###########################################
+// [ MAILING > CONFIG > DEV] ###################################################
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
-
-const dotenv = require("dotenv");
-
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
@@ -18,9 +15,8 @@ const dotenv = require("dotenv");
 // 1.5. MAIN ...................................................................
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
-dotenv.config();
 
-const { PORT } = process.env;
+const { QUEUE_URI, MJ_API_PUBLIC, MJ_API_SECRETE } = process.env;
 
 // 1.5.2. END
 
@@ -30,9 +26,15 @@ const { PORT } = process.env;
 // 1.6. END ....................................................................
 
 module.exports = {
-  port: PORT || 4000,
-  mongoURI:
-    "mongodb+srv://sibabale:test123@mailercluster.5nzxx.mongodb.net/mails?retryWrites=true&w=majority",
+  queue: {
+    uri:
+      QUEUE_URI ||
+      "amqps://kllvghpb:7bYaUq3joTLp51tBI9hopMtyU358Mliv@dove.rmq.cloudamqp.com/kllvghpb",
+  },
+  mailjet: {
+    apiPublic: MJ_API_PUBLIC,
+    apiSecrete: MJ_API_SECRETE,
+  },
 };
 
 // END FILE ####################################################################

@@ -1,12 +1,12 @@
-// [ DATABSE SERVICE > CONFIG > DEV] ###########################################
+// [ MAILING > CONFIG > DEV] ###################################################
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
-
-const dotenv = require("dotenv");
-
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
+
+require("./Q/consume")();
+
 // 1.2. END ....................................................................
 
 // 1.3. IMAGES .................................................................
@@ -18,9 +18,8 @@ const dotenv = require("dotenv");
 // 1.5. MAIN ...................................................................
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
-dotenv.config();
 
-const { PORT } = process.env;
+console.log("STARTED THE MAILING SERVICE");
 
 // 1.5.2. END
 
@@ -29,10 +28,6 @@ const { PORT } = process.env;
 // 1.6. STYLES .................................................................
 // 1.6. END ....................................................................
 
-module.exports = {
-  port: PORT || 4000,
-  mongoURI:
-    "mongodb+srv://sibabale:test123@mailercluster.5nzxx.mongodb.net/mails?retryWrites=true&w=majority",
-};
+module.exports = {};
 
 // END FILE ####################################################################
