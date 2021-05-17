@@ -3,6 +3,11 @@
 const axios = require("axios");
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
+
+const {
+  databaseService: { port },
+} = require("../config/");
+
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
@@ -18,10 +23,13 @@ const axios = require("axios");
 
 // 1.5.2. FUNCTIONS & LOCAL VARIABLES
 
-const getMails = async () => {
-  const mails = (await axios.get("http://localhost:4001/mails")).data.payload;
-  return mails;
-};
+const databaseURL = `http://localhost:${port}`;
+
+const get = (path) =>
+  async(await axios.get(`${databaseURL}/${path}`)).data.payload;
+
+const post = (path, body) =>
+  async(await axios.post(`${databaseURL}/${path}`, { ...body })).data.payload;
 
 // 1.5.2. END
 
@@ -32,14 +40,11 @@ const getMails = async () => {
 
 module.exports = {
   Query: {
-    mails: () => getMails(),
-    mail: (_, args) => mockMails[0],
+    mails: () => get("mails"),
+    mail: (_, { id }) => get(`mail/${id}`),
   },
   Mutation: {
-    mail: (_, args) => {
-      mockMails[0] = args;
-      return args;
-    },
+    mail: (_, args) => post(`mails`, args),
   },
 };
 

@@ -2,13 +2,13 @@
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
 
-const { makeExecutableSchema } = require('graphql-tools');
+const { makeExecutableSchema } = require("graphql-tools");
 
 // 1.1. END ....................................................................
 
 // 1.2. INTERNAL DEPENDENCIES ..................................................
 
-const resolvers = require('./resolvers');
+const resolvers = require("./resolvers");
 
 // 1.2. END ....................................................................
 
@@ -26,7 +26,7 @@ const typeDefs = `
 
   type Query {
     mails: [Mail]
-    mail(subject: String!, receiver: String!): Mail
+    mail(id: String!): Mail
   }
 
   type Mail {  
@@ -51,7 +51,7 @@ const typeDefs = `
 
 module.exports = makeExecutableSchema({
   typeDefs,
-  resolvers
+  resolvers,
 });
 
 // END FILE ####################################################################
