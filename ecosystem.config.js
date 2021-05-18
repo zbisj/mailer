@@ -57,8 +57,8 @@ const ecosystem = {
       watch: true,
       script: basePath + "/mailing_service/index.js",
       env: {
-        MJ_API_PUBLIC: "dcb93cfc755a5eb62409d18e7ec17862",
-        MJ_API_SECRETE: "69d64f5906eab18ea213f29bb236666d",
+        MJ_API_PUBLIC: "",
+        MJ_API_SECRETE: "",
         QUEUE_URI:
           "amqps://kllvghpb:7bYaUq3joTLp51tBI9hopMtyU358Mliv@dove.rmq.cloudamqp.com/kllvghpb",
         DB_SERVICE_PORT: 4001,

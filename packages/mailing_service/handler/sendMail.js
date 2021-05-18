@@ -2,11 +2,8 @@
 
 // 1.1. EXTERNAL DEPENDENCIES ..................................................
 
-const { apiPublic, apiPrivate } = require("../config");
-const MailJet = require("node-mailjet").connect(
-  "dcb93cfc755a5eb62409d18e7ec17862",
-  "69d64f5906eab18ea213f29bb236666d"
-);
+const { apiPublic, apiSecrete } = require("../config");
+const MailJet = require("node-mailjet").connect(apiPublic, apiSecrete);
 
 // 1.1. END ....................................................................
 
@@ -38,13 +35,13 @@ module.exports = async (mail) => {
     Messages: [
       {
         From: {
-          Email: "jojasibabale@gmail.com",
-          Name: "Sibabale",
+          Email: "ENTER YOUR EMAIL",
+          Name: "ENTER YOUR NAME",
         },
         To: [
           {
-            Email: "jojasibabale@gmail.com",
-            Name: "Sibabale",
+            Email: "ENTER THE RECEIVER'S EMAIL",
+            Name: "ENTER THE RECEIVER'S NAME",
           },
         ],
         Subject: "Greetings from Mailjet.",
